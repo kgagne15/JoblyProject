@@ -5,7 +5,7 @@
 const jsonschema = require("jsonschema");
 const express = require("express");
 
-const { BadRequestError } = require("../expressError");
+const { BadRequestError, ExpressError } = require("../expressError");
 const { ensureLoggedIn } = require("../middleware/auth");
 const Company = require("../models/company");
 
@@ -53,8 +53,14 @@ router.post("/", ensureLoggedIn, async function (req, res, next) {
 router.get("/", async function (req, res, next) {
   try {
     // console.log(req.query)
-    console.log(Company.filterValidation(req.query))
-    const companies = await Company.findAll();
+    //console.log(Company.filterValidation(req.query))
+
+    if (!Company.filterValidation(req.query)) {
+      throw new ExpressError("This includes an invalid query string", 404);
+    }
+
+
+    const companies = await Company.findAll(req.query);
     return res.json({ companies });
   } catch (err) {
     return next(err);

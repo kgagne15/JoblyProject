@@ -1,5 +1,6 @@
 "use strict";
 
+const { max } = require("pg/lib/defaults");
 const db = require("../db");
 const { BadRequestError, NotFoundError, ExpressError } = require("../expressError");
 const { sqlForPartialUpdate } = require("../helpers/sql");
@@ -49,32 +50,75 @@ class Company {
    * Returns [{ handle, name, description, numEmployees, logoUrl }, ...]
    * */
 
-  static async findAll() {
-    const companiesRes = await db.query(
-          `SELECT handle,
-                  name,
-                  description,
-                  num_employees AS "numEmployees",
-                  logo_url AS "logoUrl"
-           FROM companies
-           ORDER BY name`);
+  // static async findAll() {
+  //   const companiesRes = await db.query(
+  //         `SELECT handle,
+  //                 name,
+  //                 description,
+  //                 num_employees AS "numEmployees",
+  //                 logo_url AS "logoUrl"
+  //          FROM companies
+  //          ORDER BY name`);
+  //   return companiesRes.rows;
+  // }
+
+  //Used solution
+  static async findAll(q) {
+
+    // const keys = Object.keys(q);
+    // const values = Object.values(q);
+
+    // console.log('KEYS: ', keys)
+    // console.log('VALUES', values)
+    let query = `SELECT handle,
+    name,
+    description,
+    num_employees AS "numEmployees",
+    logo_url AS "logoUrl"
+    FROM companies`;
+    let whereExpressions = [];
+    let queryValues = [];
+
+    const {minEmployees, maxEmployees, name} = q;
+
+
+    if (minEmployees > maxEmployees) {
+      throw new BadRequestError("Min employees cannot be greater than max employees");
+    }
+
+    if (minEmployees !== undefined) {
+      queryValues.push(minEmployees);
+      whereExpressions.push(`num_employees >= $${queryValues.length}`);
+    }
+
+    if (maxEmployees !== undefined) {
+      queryValues.push(maxEmployees);
+      whereExpressions.push(`num_employees <= $${queryValues.length}`);
+    }
+
+    if (name) {
+      queryValues.push(`%${name}%`);
+      whereExpressions.push(`name ILIKE $${queryValues.length}`);
+    }
+
+    if (whereExpressions.length > 0) {
+      query += " WHERE " + whereExpressions.join(" AND ");
+    }
+
+    query += " ORDER BY name";
+    const companiesRes = await db.query(query, queryValues);
     return companiesRes.rows;
   }
 
+
   static filterValidation(obj) {
+    const validQuery = ['name', 'minEmployees', 'maxEmployees']
     const keys = Object.keys(obj)
     if (keys.length !== 0) {
-     
-        console.log(keys)
-        keys.forEach(e => {
-          if () {
-            throw new ExpressError("This is not a valid query", 404)
-          } 
-        })
-        // if (k !== 'name' || k !== 'minEmployees' || k !== 'maxEmployees') {
-        //   return new BadRequestError("These are not valid filters", 400);
-        // }
-      
+        if (!keys.every(e => validQuery.includes(e))) {
+          return false;
+        }
+        return true; 
     } else {
       return false;
     }
