@@ -1,7 +1,7 @@
 "use strict";
 
 const db = require("../db");
-const { BadRequestError, NotFoundError } = require("../expressError");
+const { BadRequestError, NotFoundError, ExpressError } = require("../expressError");
 const { sqlForPartialUpdate } = require("../helpers/sql");
 
 /** Related functions for companies. */
@@ -59,6 +59,25 @@ class Company {
            FROM companies
            ORDER BY name`);
     return companiesRes.rows;
+  }
+
+  static filterValidation(obj) {
+    const keys = Object.keys(obj)
+    if (keys.length !== 0) {
+     
+        console.log(keys)
+        keys.forEach(e => {
+          if () {
+            throw new ExpressError("This is not a valid query", 404)
+          } 
+        })
+        // if (k !== 'name' || k !== 'minEmployees' || k !== 'maxEmployees') {
+        //   return new BadRequestError("These are not valid filters", 400);
+        // }
+      
+    } else {
+      return false;
+    }
   }
 
   /** Given a company handle, return data about company.

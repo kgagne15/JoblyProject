@@ -1,10 +1,10 @@
-Part One:
+Part One: -- DONE
 1. Download starter code -- DONE
 2. Set up database and test database using jobly.sql -- DONE
 3. Read tests to understand beforeEach and afterEach methods -- DONE
 4. Run tests (jest -i) -- DONE
 5. Start up server (port 3001) -- DONE
-6. Add documentations and tests for sqlForPartialUpdate
+6. Add documentations and tests for sqlForPartialUpdate -- DONE
 
 Part Two: 
 1. Add new feature to GET /companies route to filter based on filtering criteria provided in query string
