@@ -1,0 +1,46 @@
+Part One:
+1. Download starter code -- DONE
+2. Set up database and test database using jobly.sql
+3. Read tests to understand beforeEach and afterEach methods
+4. Run tests (jest -i)
+5. Start up server (port 3001)
+6. Add documentations and tests for sqlForPartialUpdate
+
+Part Two: 
+1. Add new feature to GET /companies route to filter based on filtering criteria provided in query string
+    -Do NOT provide an overly complex query
+    -Validate that the request does not contain inappropriate filtering fields
+    -Filter in the model
+    -Write unit tests and route tests
+    -Document new code clearly using docstrings
+
+Part Three:
+1. Update authorization checks for Companies routes
+    -Retrieving list of companies or company info is open to anyone
+    -Creating/Updating/Deleting companies is only for users who have logged in with an account AND have an is_admin flag in database
+    -Add this as middleware
+    -Add tests
+2. Update authorization checks for Users routes
+    -Registration is open to anyone
+    -Creating users is only permitted by admins
+    -Getting list of users is only permitted by admins
+    -Getting user info, updating, or deleting a users is only permitted by an admin or that particular user
+    -Add test
+
+Part Four:
+1. Study jobs table in database
+2. Add Job Model (pattern-match from companies model)
+    -Updating job should never change id of the job or the associated company
+    -Add tests for the model
+3. Add routes for Jobs (same as companies without the GET filtering and with same security requirements)
+    -Add tests for routes
+4. Add filtering to the GET route now
+    -Filter by (title [case-insensitive], minSalary, hasEquity)
+    -Add tests and documentation
+5. Change GET /companies/:handle route so that it includes all info about jobs associated with company
+
+Part Five: 
+1. Add a method to User Model allowing users to apply for job
+2. Add a POST /users/:username/jobs/:id that allows a user (or admin) to apply for that job
+3. Update get-all-info methods and routes for users to include a field with a list of job IDs the user has applied for
+    -Add tests and documentation
