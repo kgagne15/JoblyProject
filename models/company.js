@@ -50,26 +50,18 @@ class Company {
    * Returns [{ handle, name, description, numEmployees, logoUrl }, ...]
    * */
 
-  // static async findAll() {
-  //   const companiesRes = await db.query(
-  //         `SELECT handle,
-  //                 name,
-  //                 description,
-  //                 num_employees AS "numEmployees",
-  //                 logo_url AS "logoUrl"
-  //          FROM companies
-  //          ORDER BY name`);
-  //   return companiesRes.rows;
-  // }
+  
 
-  //Used solution
+  //Used solution to help create the query
+
+  /*
+  *This function takes a string and sets it as the query variable
+  *Depending on the query strings sent as a parameter of the function, different
+  *strings are added to the original query string to add WHERE x = y filtering
+  *the query string is then called via db.query and the values of the query strings are used to provide
+  *the actual filtering parameters
+  */
   static async findAll(q) {
-
-    // const keys = Object.keys(q);
-    // const values = Object.values(q);
-
-    // console.log('KEYS: ', keys)
-    // console.log('VALUES', values)
     let query = `SELECT handle,
     name,
     description,
@@ -110,10 +102,17 @@ class Company {
     return companiesRes.rows;
   }
 
-
+  /*
+  * This function will take all the query strings and compare them to the list of valid query strings
+  * if any of query string does NOT match one of the valid strings, it will return false which will prompt an error in the
+  * Companies.js routes
+  */
   static filterValidation(obj) {
     const validQuery = ['name', 'minEmployees', 'maxEmployees']
     const keys = Object.keys(obj)
+    if (keys.length === 0) {
+      return true;
+    }
     if (keys.length !== 0) {
         if (!keys.every(e => validQuery.includes(e))) {
           return false;

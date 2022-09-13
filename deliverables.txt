@@ -8,10 +8,10 @@ Part One: -- DONE
 
 Part Two: 
 1. Add new feature to GET /companies route to filter based on filtering criteria provided in query string
-    -Do NOT provide an overly complex query
-    -Validate that the request does not contain inappropriate filtering fields
-    -Filter in the model
-    -Write unit tests and route tests
+    -Do NOT provide an overly complex query -- DONE
+    -Validate that the request does not contain inappropriate filtering fields -- DONE
+    -Filter in the model -- DONE
+    -Write unit tests and route tests 
     -Document new code clearly using docstrings
 
 Part Three:

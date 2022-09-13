@@ -52,13 +52,10 @@ router.post("/", ensureLoggedIn, async function (req, res, next) {
 
 router.get("/", async function (req, res, next) {
   try {
-    // console.log(req.query)
-    //console.log(Company.filterValidation(req.query))
 
     if (!Company.filterValidation(req.query)) {
       throw new ExpressError("This includes an invalid query string", 404);
     }
-
 
     const companies = await Company.findAll(req.query);
     return res.json({ companies });
