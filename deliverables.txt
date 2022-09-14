@@ -6,26 +6,26 @@ Part One: -- DONE
 5. Start up server (port 3001) -- DONE
 6. Add documentations and tests for sqlForPartialUpdate -- DONE
 
-Part Two: 
+Part Two: -- DONE
 1. Add new feature to GET /companies route to filter based on filtering criteria provided in query string
     -Do NOT provide an overly complex query -- DONE
     -Validate that the request does not contain inappropriate filtering fields -- DONE
     -Filter in the model -- DONE
-    -Write unit tests and route tests 
+    -Write unit tests and route tests -- DONE
     -Document new code clearly using docstrings -- DONE
 
 Part Three:
 1. Update authorization checks for Companies routes
-    -Retrieving list of companies or company info is open to anyone
-    -Creating/Updating/Deleting companies is only for users who have logged in with an account AND have an is_admin flag in database
-    -Add this as middleware
+    -Retrieving list of companies or company info is open to anyone -- DONE
+    -Creating/Updating/Deleting companies is only for users who have logged in with an account AND have an is_admin flag in database -- DONE
+    -Add this as middleware -- DONE
     -Add tests
 2. Update authorization checks for Users routes
-    -Registration is open to anyone
-    -Creating users is only permitted by admins
-    -Getting list of users is only permitted by admins
-    -Getting user info, updating, or deleting a users is only permitted by an admin or that particular user
-    -Add test
+    -Registration is open to anyone -- DONE
+    -Creating users is only permitted by admins -- DONE
+    -Getting list of users is only permitted by admins -- DONE
+    -Getting user info, updating, or deleting a users is only permitted by an admin or that particular user -- DONE
+    -Add tests and fix middleware documentation (ensureAdmin doesn't check that someone is logged in)
 
 Part Four:
 1. Study jobs table in database

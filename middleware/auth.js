@@ -6,6 +6,43 @@ const jwt = require("jsonwebtoken");
 const { SECRET_KEY } = require("../config");
 const { UnauthorizedError } = require("../expressError");
 
+/*
+*Used solution
+*
+*This function checks that the user has authentic JWT and is part of res.locals.user
+*It also checks that the user has an isAdmin field flagged.
+*If not it will throw an unauthorized error
+*/
+function ensureAdmin(req, res, next) {
+  try {
+    if (!res.locals.user || !res.locals.user.isAdmin) {
+      throw new UnauthorizedError();
+    }
+      return next();
+  } catch(e) {
+    return next(e);
+  }
+}
+
+/*
+*Used solution
+*
+*This function checks that the user has authentic JWT and is part of res.locals.user
+*It also checks that the user has an isAdmin field flagged OR their username matches the username of the user to be edited/deleted.
+*If not it will throw an unauthorized error
+*/
+function ensureCorrectUserOrAdmin(req, res, next) {
+  try {
+    const user = res.locals.user
+    if (!(user && user.isAdmin || user.username === req.params.username)) {
+      throw new UnauthorizedError();
+    }
+    return next();
+  } catch(e) {
+    return next();
+  }
+}
+
 
 /** Middleware: Authenticate user.
  *
@@ -46,4 +83,6 @@ function ensureLoggedIn(req, res, next) {
 module.exports = {
   authenticateJWT,
   ensureLoggedIn,
+  ensureAdmin,
+  ensureCorrectUserOrAdmin
 };
