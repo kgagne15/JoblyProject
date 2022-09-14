@@ -19,7 +19,7 @@ Part Three:
     -Retrieving list of companies or company info is open to anyone -- DONE
     -Creating/Updating/Deleting companies is only for users who have logged in with an account AND have an is_admin flag in database -- DONE
     -Add this as middleware -- DONE
-    -Add tests
+    -Add tests -- DONE
 2. Update authorization checks for Users routes
     -Registration is open to anyone -- DONE
     -Creating users is only permitted by admins -- DONE
