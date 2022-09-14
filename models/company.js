@@ -61,7 +61,8 @@ class Company {
   *the query string is then called via db.query and the values of the query strings are used to provide
   *the actual filtering parameters
   */
-  static async findAll(q) {
+  static async findAll(q = {}) {
+    //console.log(q)
     let query = `SELECT handle,
     name,
     description,
@@ -71,7 +72,10 @@ class Company {
     let whereExpressions = [];
     let queryValues = [];
 
+    //const keys = Object.keys(q)
+    //console.log(keys, "KEYS")
     const {minEmployees, maxEmployees, name} = q;
+    console.log(minEmployees, maxEmployees, name)
 
 
     if (minEmployees > maxEmployees) {

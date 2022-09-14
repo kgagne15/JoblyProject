@@ -15,6 +15,12 @@ beforeEach(commonBeforeEach);
 afterEach(commonAfterEach);
 afterAll(commonAfterAll);
 
+
+
+
+
+
+
 /************************************** create */
 
 describe("create", function () {
@@ -85,6 +91,33 @@ describe("findAll", function () {
       },
     ]);
   });
+
+  test("works: with filter minEmployees/maxEmployees", async function () {
+    let companies = await Company.findAll({minEmployees: 1, maxEmployees: 1});
+    expect(companies).toEqual([
+      {
+        handle: "c1",
+        name: "C1",
+        description: "Desc1",
+        numEmployees: 1,
+        logoUrl: "http://c1.img",
+      },
+    ])
+  })
+
+  test("works: with filter name", async function () {
+    let companies = await Company.findAll({name: "C1"});
+    expect(companies).toEqual([
+      {
+        handle: "c1",
+        name: "C1",
+        description: "Desc1",
+        numEmployees: 1,
+        logoUrl: "http://c1.img",
+      },
+    ])
+  })
+
 });
 
 /************************************** get */
@@ -110,6 +143,38 @@ describe("get", function () {
     }
   });
 });
+
+
+
+
+/************************************** filter validation */
+
+
+describe("Filter validation", function() {
+  const obj = {name: 'Test', minEmployees: 3, maxEmployees: 8}
+  const badObj = {namee: 'Test', minEmployees: 4, maxEmployees: 8}
+  const secondBadObj = {name: 'Test', minEmployeees: 4, maxEmployees: 8}
+  test("returns true with all 3 valid entries", function() {
+    let result = Company.filterValidation(obj);
+    expect(result).toEqual(true);
+  })
+
+  test("returns false with 1 invalid entry as first entry", function() {
+    let result = Company.filterValidation(badObj);
+    expect(result).toEqual(false);
+  })
+
+  test("returns false with 1 invalid entry as not first entry", function() {
+    let result = Company.filterValidation(secondBadObj);
+    expect(result).toEqual(false);
+  })
+
+  test("returns true with no entries", function() {
+    let result = Company.filterValidation({});
+    expect(result).toEqual(true);
+  })
+})
+
 
 /************************************** update */
 

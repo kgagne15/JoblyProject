@@ -12,7 +12,7 @@ Part Two:
     -Validate that the request does not contain inappropriate filtering fields -- DONE
     -Filter in the model -- DONE
     -Write unit tests and route tests 
-    -Document new code clearly using docstrings
+    -Document new code clearly using docstrings -- DONE
 
 Part Three:
 1. Update authorization checks for Companies routes
