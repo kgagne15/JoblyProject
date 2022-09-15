@@ -14,23 +14,23 @@ Part Two: -- DONE
     -Write unit tests and route tests -- DONE
     -Document new code clearly using docstrings -- DONE
 
-Part Three:
-1. Update authorization checks for Companies routes
+Part Three: -- DONE
+1. Update authorization checks for Companies routes -- DONE
     -Retrieving list of companies or company info is open to anyone -- DONE
     -Creating/Updating/Deleting companies is only for users who have logged in with an account AND have an is_admin flag in database -- DONE
     -Add this as middleware -- DONE
     -Add tests -- DONE
-2. Update authorization checks for Users routes
+2. Update authorization checks for Users routes -- DONE
     -Registration is open to anyone -- DONE
     -Creating users is only permitted by admins -- DONE
     -Getting list of users is only permitted by admins -- DONE
     -Getting user info, updating, or deleting a users is only permitted by an admin or that particular user -- DONE
-    -Add tests and fix middleware documentation (ensureAdmin doesn't check that someone is logged in)
+    -Add tests and fix middleware documentation -- DONE 
 
 Part Four:
-1. Study jobs table in database
+1. Study jobs table in database -- DONE
 2. Add Job Model (pattern-match from companies model)
-    -Updating job should never change id of the job or the associated company
+    -Updating job should never change id of the job or the associated company 
     -Add tests for the model
 3. Add routes for Jobs (same as companies without the GET filtering and with same security requirements)
     -Add tests for routes
