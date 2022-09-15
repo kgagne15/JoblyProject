@@ -30,7 +30,7 @@ describe("POST /companies", function () {
     numEmployees: 10,
   };
 
-  test("ok for users", async function () {
+  test("ok for admins", async function () {
     const resp = await request(app)
         .post("/companies")
         .send(newCompany)
@@ -178,16 +178,7 @@ describe("GET /companies/:handle", function () {
 /************************************** PATCH /companies/:handle */
 
 describe("PATCH /companies/:handle", function () {
-  test("works for users", async function () {
-    const resp = await request(app)
-        .patch(`/companies/c1`)
-        .send({
-          name: "C1-new",
-        })
-        .set("authorization", `Bearer ${u1Token}`);
-    expect(resp.statusCode).toEqual(401);
-    });
-  
+   
 
   test("unauth for anon", async function () {
     const resp = await request(app)
@@ -262,7 +253,7 @@ expect(resp.body).toEqual({
 /************************************** DELETE /companies/:handle */
 
 describe("DELETE /companies/:handle", function () {
-  test("works for users", async function () {
+  test("works for admins", async function () {
     const resp = await request(app)
         .delete(`/companies/c1`)
         .set("authorization", `Bearer ${adminToken}`);
@@ -274,6 +265,13 @@ describe("DELETE /companies/:handle", function () {
         .delete(`/companies/c1`);
     expect(resp.statusCode).toEqual(401);
   });
+
+  test("unauth for non-admin", async function() {
+    const resp = await request(app)
+        .delete(`/companies/c1`)
+        .set("authorization", `Bearer ${adminToken}`);
+    expect(resp.statusCode).toEqual(401);
+  })
 
   test("not found for no such company", async function () {
     const resp = await request(app)
