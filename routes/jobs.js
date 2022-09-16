@@ -65,7 +65,7 @@ router.get("/", async function(req, res, next) {
 router.get("/:id", async function(req, res, next) {
     try {
         const job = await Job.get(req.params.id);
-        return res.json({job});
+        return res.json({ job });
     } catch(e) {
         return next(e);
     }
@@ -100,7 +100,7 @@ router.patch("/:id", ensureAdmin, async function(req, res, next){
 *must be admin
 */
 
-router.delete("/:id", async function(req, res, next) {
+router.delete("/:id", ensureAdmin, async function(req, res, next) {
     try {
         await Job.remove(req.params.id);
         return res.json({deleted: req.params.id});
