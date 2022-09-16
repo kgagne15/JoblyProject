@@ -33,11 +33,11 @@ Part Four:
     -Updating job should never change id of the job or the associated company -- DONE
     -Add tests for the model -- DONE
 3. Add routes for Jobs (same as companies without the GET filtering and with same security requirements) -- DONE
-    -Add tests for routes
+    -Add tests for routes -- DONE
 4. Add filtering to the GET route now
     -Filter by (title [case-insensitive], minSalary, hasEquity)
     -Add tests and documentation
-5. Change GET /companies/:handle route so that it includes all info about jobs associated with company
+5. Change GET /companies/:handle route so that it includes all info about jobs associated with company -- DONE
 
 Part Five: 
 1. Add a method to User Model allowing users to apply for job
