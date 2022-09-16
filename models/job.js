@@ -30,14 +30,85 @@ class Job {
 
     /*
     *Finds all jobs available
+    *
+    * filtering added
     */
 
-    static async findAll() {
-        const results = await db.query(`
-            SELECT * FROM jobs; 
-        `)
+    // static async findAll() {
+    //     const results = await db.query(`
+    //         SELECT * FROM jobs; 
+    //     `)
 
-        return results.rows;
+    //     return results.rows;
+    // }
+
+    static async findAll(q = {}) {
+        let queryString = `
+            SELECT title, salary, equity, company_handle
+            FROM jobs
+        `;
+
+        let whereExpressions = [];
+        let queryValues = [];
+
+        const {title, minSalary, hasEquity} = q;
+        //title = title.toLowerCase()
+
+        
+        if (minSalary < 0) {
+            throw new BadRequestError("The salary cannot be a negative number");
+        }
+  
+      if (minSalary !== undefined) {
+        queryValues.push(minSalary);
+        whereExpressions.push(`salary >= $${queryValues.length}`);
+      }
+
+      if (hasEquity === "true") {
+        //queryValues.push(hasEquity);
+        whereExpressions.push(`equity > 0`);
+      }
+
+    //   if (hasEquity === false) {
+    //     queryValues.push(hasEquity);
+    //     whereExpressions.push(`equity > 0 OR equity `)
+    //   } 
+  
+      if (title !== undefined) {
+        queryValues.push(`%${title}%`);
+        whereExpressions.push(`title ILIKE $${queryValues.length}`);
+      }
+  
+      
+  
+      if (whereExpressions.length > 0) {
+        queryString += " WHERE " + whereExpressions.join(" AND ");
+      }
+
+      queryString += " ORDER BY title";
+        const jobsRes = await db.query(queryString, queryValues);
+        return jobsRes.rows;
+  
+    }
+
+    /*
+    *Filter validation so that inappropriate query strings cannot be used
+    */
+
+    static filterValidation(obj) {
+        const validQuery = ['title', 'minSalary', 'hasEquity']
+        const keys = Object.keys(obj)
+        if (keys.length === 0) {
+            return true;
+        }
+        if (keys.length !== 0) {
+            if (!keys.every(e => validQuery.includes(e))) {
+            return false;
+            }
+            return true; 
+        } else {
+            return false;
+        }
     }
 
     /*

@@ -49,7 +49,13 @@ router.post("/", ensureAdmin, async function (req, res, next) {
 
 router.get("/", async function(req, res, next) {
     try {
-        const jobs = await Job.findAll();
+        // console.log('**********************************')
+        // console.log(Job.filterValidation(req.query))
+        // console.log('**********************************')
+        if (!Job.filterValidation(req.query)) {
+            throw new ExpressError("This includes an invalid query string", 404);
+          }
+        const jobs = await Job.findAll(req.query);
         return res.json({jobs})
     } catch(e) {
         return next(e);
