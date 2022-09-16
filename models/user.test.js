@@ -12,6 +12,7 @@ const {
   commonBeforeEach,
   commonAfterEach,
   commonAfterAll,
+  testJobIds,
 } = require("./_testCommon");
 
 beforeAll(commonBeforeAll);
@@ -152,6 +153,14 @@ describe("get", function () {
     }
   });
 });
+
+/*****************************************apply */
+describe("apply for job", function() {
+  test("works", async function() {
+    let application = await User.apply('u1', testJobIds[0]);
+    expect(application).toEqual({username: 'u1', job_id: testJobIds[0]})
+  })
+})
 
 /************************************** update */
 

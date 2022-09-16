@@ -12,6 +12,7 @@ const { createToken } = require("../helpers/tokens");
 const userNewSchema = require("../schemas/userNew.json");
 const userUpdateSchema = require("../schemas/userUpdate.json");
 
+
 const router = express.Router();
 
 
@@ -43,6 +44,23 @@ router.post("/", ensureLoggedIn, ensureAdmin, async function (req, res, next) {
   }
 });
 
+/*
+* POST /user/:username/jobs/:id
+*
+*allows user/admin to apply for a specific job
+*/
+
+router.post("/:username/jobs/:id", ensureCorrectUserOrAdmin, async function(req, res, next) {
+  try {
+  
+    const {username, id} = req.params;
+    const application = await User.apply(username, id);
+    return res.status(201).json({application})
+
+  } catch(e) {
+    return next(e);
+  }
+})
 
 /** GET / => { users: [ {username, firstName, lastName, email }, ... ] }
  *

@@ -12,7 +12,8 @@ const {
   commonAfterEach,
   commonAfterAll,
   u1Token,
-  adminToken
+  adminToken,
+  testJobIds
 } = require("./_testCommon");
 
 beforeAll(commonBeforeAll);
@@ -124,6 +125,30 @@ describe("POST /users", function () {
     expect(resp.statusCode).toEqual(400);
   });
 });
+
+/****************************************POST /users/:username/jobs/:id */
+
+describe("POST /users/:username/jobs/:id", function() {
+  test("works for admin", async function() {
+    const resp = await request(app)
+    .post(`/users/u3/jobs/${testJobIds[0]}`)
+    .set("authorization", `Bearer ${adminToken}`)
+    expect(resp.statusCode).toEqual(201)
+  })
+
+  test("works for same user", async function() {
+    const resp = await request(app)
+    .post(`/users/u1/jobs/${testJobIds[0]}`)
+    .set("authorization", `Bearer ${u1Token}`)
+    expect(resp.statusCode).toEqual(201)
+  })
+
+  test("unauth for non-admin and not user", async function() {
+    const resp = await request(app)
+    .post(`/users/u3/jobs/${testJobIds[0]}`)
+    expect(resp.statusCode).toEqual(401)
+  })
+})
 
 /************************************** GET /users */
 

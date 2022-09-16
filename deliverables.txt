@@ -27,7 +27,7 @@ Part Three: -- DONE
     -Getting user info, updating, or deleting a users is only permitted by an admin or that particular user -- DONE
     -Add tests and fix middleware documentation -- DONE 
 
-Part Four:
+Part Four: -- DONE
 1. Study jobs table in database -- DONE
 2. Add Job Model (pattern-match from companies model) -- DONE
     -Updating job should never change id of the job or the associated company -- DONE
@@ -36,11 +36,11 @@ Part Four:
     -Add tests for routes -- DONE
 4. Add filtering to the GET route now
     -Filter by (title [case-insensitive], minSalary, hasEquity) -- DONE
-    -Add tests and documentation
+    -Add tests and documentation -- DONE
 5. Change GET /companies/:handle route so that it includes all info about jobs associated with company -- DONE
 
 Part Five: 
-1. Add a method to User Model allowing users to apply for job
+1. Add a method to User Model allowing users to apply for job -- DONE
 2. Add a POST /users/:username/jobs/:id that allows a user (or admin) to apply for that job
 3. Update get-all-info methods and routes for users to include a field with a list of job IDs the user has applied for
     -Add tests and documentation
