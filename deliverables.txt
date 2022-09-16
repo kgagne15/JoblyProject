@@ -41,6 +41,6 @@ Part Four: -- DONE
 
 Part Five: 
 1. Add a method to User Model allowing users to apply for job -- DONE
-2. Add a POST /users/:username/jobs/:id that allows a user (or admin) to apply for that job
+2. Add a POST /users/:username/jobs/:id that allows a user (or admin) to apply for that job -- DONE
 3. Update get-all-info methods and routes for users to include a field with a list of job IDs the user has applied for
-    -Add tests and documentation
+    -Add tests and documentation -- DONE

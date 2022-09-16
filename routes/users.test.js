@@ -222,6 +222,11 @@ describe("GET /users/:username", function () {
         lastName: "U1L",
         email: "user1@user.com",
         isAdmin: false,
+        jobs: [
+          {
+            job_id: testJobIds[1]
+          }
+        ]
       },
     });
   });
@@ -237,6 +242,11 @@ describe("GET /users/:username", function () {
         lastName: "U1L",
         email: "user1@user.com",
         isAdmin: false,
+        jobs: [
+          {
+            job_id: testJobIds[1]
+          }
+        ]
       },
     });
   })

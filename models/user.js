@@ -139,6 +139,13 @@ class User {
 
     if (!user) throw new NotFoundError(`No user: ${username}`);
 
+    const appRes = await db.query(`
+      SELECT job_id FROM applications
+      JOIN users ON applications.username=users.username
+      WHERE applications.username=$1
+    `, [username])
+
+    user.jobs = appRes.rows
     return user;
   }
 

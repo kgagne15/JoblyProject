@@ -88,6 +88,12 @@ async function commonBeforeAll() {
 //     { title: "J2", salary: 2, equity: "0.2", companyHandle: "c1" })).id;
 // testJobIds[2] = (await Job.create(
 //     { title: "J3", salary: 3, /* equity null */ companyHandle: "c1" })).id;
+
+await db.query(`
+      INSERT INTO applications(username, job_id)
+      VALUES('u1', ${testJobIds[1]})
+      RETURNING username, job_id
+    `)
   
 }
 
