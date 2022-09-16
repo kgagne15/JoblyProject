@@ -29,9 +29,9 @@ Part Three: -- DONE
 
 Part Four:
 1. Study jobs table in database -- DONE
-2. Add Job Model (pattern-match from companies model)
-    -Updating job should never change id of the job or the associated company 
-    -Add tests for the model
+2. Add Job Model (pattern-match from companies model) -- DONE
+    -Updating job should never change id of the job or the associated company -- DONE
+    -Add tests for the model -- DONE
 3. Add routes for Jobs (same as companies without the GET filtering and with same security requirements)
     -Add tests for routes
 4. Add filtering to the GET route now
