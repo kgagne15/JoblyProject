@@ -152,6 +152,11 @@ describe("GET /companies/:handle", function () {
         description: "Desc1",
         numEmployees: 1,
         logoUrl: "http://c1.img",
+        jobs: [
+          {title: "new job 1",
+          salary: 100, 
+          equity: "0.3"}
+        ]
       },
     });
   });
@@ -165,6 +170,13 @@ describe("GET /companies/:handle", function () {
         description: "Desc2",
         numEmployees: 2,
         logoUrl: "http://c2.img",
+        jobs: [
+          {
+            title: "new job 2",
+            salary: 200, 
+            equity: "0.4",
+          }
+        ]
       },
     });
   });
@@ -269,7 +281,7 @@ describe("DELETE /companies/:handle", function () {
   test("unauth for non-admin", async function() {
     const resp = await request(app)
         .delete(`/companies/c1`)
-        .set("authorization", `Bearer ${adminToken}`);
+        .set("authorization", `Bearer ${u1Token}`);
     expect(resp.statusCode).toEqual(401);
   })
 

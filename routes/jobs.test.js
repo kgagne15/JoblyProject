@@ -90,19 +90,17 @@ describe("POST /jobs", function() {
 /**************************************************GET /jobs */
 
 describe("GET /jobs", function() {
-    test("ok for anon", async function() {
+    test("ok for anon and no filter", async function() {
         const resp = await request(app).get("/jobs");
         expect(resp.body).toEqual({
             jobs: [
                 {
-                    id: expect.any(Number),
                     title: "new job 1",
                     salary: 100, 
                     equity: "0.3",
                     company_handle: "c1"
                 },
                 {
-                    id: expect.any(Number),
                     title: "new job 2",
                     salary: 200, 
                     equity: "0.4",
@@ -111,6 +109,21 @@ describe("GET /jobs", function() {
             ]
         });
     });
+
+    test("ok for anon with filter", async function() {
+      const resp = await request(app).get("/jobs?minSalary=200");
+        expect(resp.body).toEqual({
+            jobs: [
+                {
+                    title: "new job 2",
+                    salary: 200, 
+                    equity: "0.4",
+                    company_handle: "c2"
+                },
+            ]
+        });
+    });
+
 });
 
 

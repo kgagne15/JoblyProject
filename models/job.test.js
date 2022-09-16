@@ -44,36 +44,71 @@ describe("findAll", function() {
         let jobs = await Job.findAll();
         expect(jobs).toEqual([
             {
-                id: expect.any(Number),
                 title: "Job1",
                 salary: 100,
                 equity: '0.1',
                 company_handle: 'c1'
             },
             {
-                id: expect.any(Number),
                 title: "Job2",
                 salary: 200,
                 equity: '0.2',
                 company_handle: 'c1'
             },
             {
-                id: expect.any(Number),
                 title: "Job3",
                 salary: 300,
                 equity: '0',
                 company_handle: 'c1'
             },
             {
-                id: expect.any(Number),
                 title: "Job4",
                 salary: null,
                 equity: null,
                 company_handle: 'c1'
             }
-        ])
-    })
+        ]);
+    });
+
+    test("works: valid filter", async function() {
+        let jobs = await Job.findAll({title: 'Job1'});
+        expect(jobs).toEqual([
+            {
+                title: "Job1",
+                salary: 100,
+                equity: '0.1',
+                company_handle: 'c1' 
+            }
+        ]);
+    });
 })
+
+/************************************************filter validation */
+
+describe("Filter validation", function() {
+    const obj = {title: 'Test', minSalary: 100000, hasEquity: true}
+    const badObj = {titlee: 'Test', minSalary: 100000, hasEquity: false}
+    const secondBadObj = {title: 'Test', minSalarry: 100000, hasEquity: false}
+    test("returns true with all 3 valid entries", function() {
+      let result = Job.filterValidation(obj);
+      expect(result).toEqual(true);
+    })
+  
+    test("returns false with 1 invalid entry as first entry", function() {
+      let result = Job.filterValidation(badObj);
+      expect(result).toEqual(false);
+    })
+  
+    test("returns false with 1 invalid entry as not first entry", function() {
+      let result = Job.filterValidation(secondBadObj);
+      expect(result).toEqual(false);
+    })
+  
+    test("returns true with no entries", function() {
+      let result = Job.filterValidation({});
+      expect(result).toEqual(true);
+    })
+  })
 
 
 /********************************************* get specific job */

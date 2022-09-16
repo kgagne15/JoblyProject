@@ -103,8 +103,9 @@ class Job {
         }
         if (keys.length !== 0) {
             if (!keys.every(e => validQuery.includes(e))) {
-            return false;
+                return false;
             }
+            console.log(keys)
             return true; 
         } else {
             return false;

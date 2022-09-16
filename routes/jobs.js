@@ -49,9 +49,6 @@ router.post("/", ensureAdmin, async function (req, res, next) {
 
 router.get("/", async function(req, res, next) {
     try {
-        // console.log('**********************************')
-        // console.log(Job.filterValidation(req.query))
-        // console.log('**********************************')
         if (!Job.filterValidation(req.query)) {
             throw new ExpressError("This includes an invalid query string", 404);
           }
