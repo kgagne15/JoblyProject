@@ -34,13 +34,6 @@ class Job {
     * filtering added
     */
 
-    // static async findAll() {
-    //     const results = await db.query(`
-    //         SELECT * FROM jobs; 
-    //     `)
-
-    //     return results.rows;
-    // }
 
     static async findAll(q = {}) {
         let queryString = `
@@ -52,8 +45,6 @@ class Job {
         let queryValues = [];
 
         const {title, minSalary, hasEquity} = q;
-        //title = title.toLowerCase()
-
         
         if (minSalary < 0) {
             throw new BadRequestError("The salary cannot be a negative number");
@@ -65,21 +56,14 @@ class Job {
       }
 
       if (hasEquity === "true") {
-        //queryValues.push(hasEquity);
         whereExpressions.push(`equity > 0`);
       }
 
-    //   if (hasEquity === false) {
-    //     queryValues.push(hasEquity);
-    //     whereExpressions.push(`equity > 0 OR equity `)
-    //   } 
   
       if (title !== undefined) {
         queryValues.push(`%${title}%`);
         whereExpressions.push(`title ILIKE $${queryValues.length}`);
       }
-  
-      
   
       if (whereExpressions.length > 0) {
         queryString += " WHERE " + whereExpressions.join(" AND ");

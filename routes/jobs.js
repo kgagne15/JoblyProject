@@ -77,7 +77,7 @@ router.get("/:id", async function(req, res, next) {
 /*
 * PATCH
 *
-*patches job data
+*patches job data, must be admin
 *
 *Fields can be {title, salary, equity}
 */

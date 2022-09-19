@@ -72,8 +72,6 @@ class Company {
     let whereExpressions = [];
     let queryValues = [];
 
-    //const keys = Object.keys(q)
-    //console.log(keys, "KEYS")
     const {minEmployees, maxEmployees, name} = q;
     console.log(minEmployees, maxEmployees, name)
 

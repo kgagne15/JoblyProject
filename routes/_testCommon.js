@@ -14,7 +14,7 @@ async function commonBeforeAll() {
   // noinspection SqlWithoutWhere
   await db.query("DELETE FROM companies");
   //noinspection SQLWithoutWhere
-  //await db.query("DELETE FROM jobs");
+  
 
   await Company.create(
       {
@@ -82,12 +82,6 @@ async function commonBeforeAll() {
     company_handle: "c2"
   })).id
 
-//   testJobIds[0] = (await Job.create(
-//     { title: "J1", salary: 1, equity: "0.1", companyHandle: "c1" })).id;
-// testJobIds[1] = (await Job.create(
-//     { title: "J2", salary: 2, equity: "0.2", companyHandle: "c1" })).id;
-// testJobIds[2] = (await Job.create(
-//     { title: "J3", salary: 3, /* equity null */ companyHandle: "c1" })).id;
 
 await db.query(`
       INSERT INTO applications(username, job_id)
